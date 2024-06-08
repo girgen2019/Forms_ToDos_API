@@ -7,53 +7,60 @@ export const Registration = () => {
   const [password, setPassword] = useState();
   const [gender, setGender] = useState();
   const [age, setAge] = useState();
-  const [createUser, setCreateUser] = useState();
+  const [createUser, setCreateUser] = useState({
+    username: '',
+    email: '',
+    password: '',
+    gender: '',
+    age:'',
+  });
+
+
+// 'genadzi'
+// '2022@gmail.com'
+// 'Aa1#fghj'
+// 'male'
+// '30'
+
+
+
   const [request, setRequest] = useState();
 
-  const handleNameForm = () => {
-    setName('genadzi');
+  const handleNameForm = (e) => {
+    createUser.username = e.target.value;
   };
-  const handleEmailForm = () => {
-    setEmail('2022@gmail.com');
+  const handleEmailForm = (e) => {
+    createUser.email = e.target.value;
   };
-  const handlePasswordForm = () => {
-    setPassword('Aa1#fghj');
-  };
-
-  const handleGender = () => {
-    setGender('male');
+  const handlePasswordForm = (e) => {
+    createUser.password = e.target.value;
   };
 
-  const handleAge = () => {
-    setAge('30');
+  const handleGender = (e) => {
+    createUser.gender = e.target.value;
+  };
+
+  const handleAge = (e) => {
+    createUser.age = e.target.value;
   };
 
   const saveInformation = (e) => {
     e.preventDefault();
-    setCreateUser({
-      username: name,
-      email: email,
-      password: password,
-      gender: gender,
-      age: age,
-    });
-    setName('');
-    setEmail('');
-    setPassword('');
+    
     const req = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(createUser),
-    };
-    async function request() {
-      return await fetch(
-        'https://todo-redev.herokuapp.com/api/users/register',
-        req
-      )
-        .then((response) => response.json())
-        .then((data) => setRequest(data));
-    }
-    request();
+      };
+      async function request() {
+        return await fetch(
+          'https://todo-redev.herokuapp.com/api/users/register',
+          req
+          )
+          .then((response) => response.json())
+          .then((data) => setRequest(data));
+          }
+          request();
   };
 
   return (
@@ -64,7 +71,6 @@ export const Registration = () => {
         <input
           id="username"
           name="fname"
-          value={name}
           onChange={handleNameForm}
         />
         <br />

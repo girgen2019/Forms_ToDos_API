@@ -1,36 +1,62 @@
 /** @format */
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+
+const isToken = () => {
+  const tokenValue = localStorage.getItem('token')
+  if (tokenValue){
+    return tokenValue
+  }else{
+    return localStorage.setItem("tok")
+  }
+}
 
 export const Login = () => {
-  const [loginEmail, setLoginEmail] = useState();
-  const [loginPassword, setLoginPassword] = useState();
-  const [objectLogin, setObjectLogin] = useState();
-  const [token, setToken] = useState()
+  const [objectLogin, setObjectLogin] = useState({
+    email: '',
+    password: '',
+  });
+  const [token, setToken] = useState(isToken());
 
-  const handleLoginEmail = () => setLoginEmail('2022@gmail.com');
-  const handleLoginPassword = () => setLoginPassword('Aa1#fghj');
+  const handleLoginEmail = (e) => {
+    objectLogin.email = e.target.value;
+  };
+
+  const handleLoginPassword = (e) => {
+    objectLogin.password = e.target.value;
+  };
 
   const navigate = useNavigate();
   const goBack = () => navigate('/');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setObjectLogin({ email: loginEmail, password: loginPassword });
+
     const req = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objectLogin),
     };
-    async function loginization () {
+    async function loginization() {
       return await fetch('https://todo-redev.herokuapp.com/api/auth/login', req)
-      .then((response) => response.json())
+        .then((response) => response.json())
         .then((data) => setToken(data));
     }
-    loginization()
+    loginization();
+  
   };
-console.log(token);
+
+  useEffect(() => {
+        return () => {
+      localStorage.setItem('token', token);
+    }
+  },[token]);
+
+  // '2022@gmail.com'
+  // 'Aa1#fghj'
+
   return (
     <>
       <button
@@ -40,25 +66,12 @@ console.log(token);
         Back
       </button>
       <form>
-        <label htmlFor="name">email:</label>
+        <div>email</div>
+        <input onChange={handleLoginEmail} />
+        <div>password</div>
+        <input onChange={handleLoginPassword} />
         <br />
-        <input
-          type="text"
-          name="email"
-          value={loginEmail}
-          onChange={handleLoginEmail}
-        />
-        <br />
-        <label htmlFor="password">password:</label>
-        <br />
-        <input
-          type="text"
-          name="password"
-          value={loginPassword}
-          onChange={handleLoginPassword}
-        />
-        <br />
-        <input type="submit" value="Submit" onClick={handleSubmit}/>
+        <input type="submit" value="Submit" onClick={handleSubmit} />
       </form>
     </>
   );
