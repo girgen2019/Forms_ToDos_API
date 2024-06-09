@@ -5,9 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState()
 
   const handleAddTodos = () => {
-    
+    setTodos([...todos,{id:Date.now(),title:input}])
+  }
+
+  const handleChangeInput = (e) => {
+    setInput(e.target.value)
   }
 
   const navigateToPrevios = useNavigate();
@@ -24,8 +29,11 @@ export const Todo = () => {
         Go back
       </button>
       <div>Todo List</div>
-      <input />
-      <button>Add</button>
+      <input  onChange={handleChangeInput}/>
+      <button onClick={handleAddTodos}>Add</button>
+      <ul>{todos.map(todo => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}</ul>
     </>
   );
 };
