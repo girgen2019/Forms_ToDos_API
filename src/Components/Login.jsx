@@ -69,7 +69,7 @@ export const Login = () => {
           style={{ position: 'fixed', top: '5px', left: '5px' }}
           onClick={goBack}
         >
-          Back
+         Go back
         </button>
         <form>
           <div>email</div>
