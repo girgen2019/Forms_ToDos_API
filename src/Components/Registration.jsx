@@ -107,18 +107,6 @@ export const Registration = () => {
         <br />
         <input type="submit" value="Submit" onClick={saveInformation} />
       </form>
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '10px 0px',
-        }}
-      >
-        <div>name is: {name}</div>
-        <div>email is: {email}</div>
-        <div>password is: {password}</div>
-      </div>
       <NavLink to="/login">Already have an account? Log in.</NavLink>
       <Outlet />
     </div>

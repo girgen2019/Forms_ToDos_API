@@ -1,8 +1,7 @@
 /** @format */
 
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
-import { Todo } from './ToDo';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const isToken = () => {
   let tokenStore = localStorage.getItem('token');

@@ -1,24 +1,36 @@
 /** @format */
+import { Layout, Image } from 'antd';
 
 import logo from './logo.svg';
 import './App.css';
 import { Login } from './Components/Login';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Registration } from './Components/Registration';
 import { Todo } from './Components/ToDo';
 
+const { Header, Content } = Layout;
+
 function App() {
-
-
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/todo' element={<Todo />} />
-      </Routes>
-    </div>
+    <Layout>
+      <Header>
+          <Image
+            width={80}
+            src={logo}
+            className='App-logo'
+            preview={false}
+          />
+      </Header>
+      <div className="App">
+        <Content>
+          <Routes>
+            <Route path="/" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/todo" element={<Todo />} />
+          </Routes>
+        </Content>
+      </div>
+    </Layout>
   );
 }
 
