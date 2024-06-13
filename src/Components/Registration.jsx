@@ -1,4 +1,6 @@
 /** @format */
+import { Button, Checkbox, Form, Input } from 'antd';
+
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 export const Registration = () => {
@@ -12,17 +14,14 @@ export const Registration = () => {
     email: '',
     password: '',
     gender: '',
-    age:'',
+    age: '',
   });
 
-
-// 'genadzi'
-// '2022@gmail.com'
-// 'Aa1#fghj'
-// 'male'
-// '30'
-
-
+  // 'genadzi'
+  // '2022@gmail.com'
+  // 'Aa1#fghj'
+  // 'male'
+  // '30'
 
   const [request, setRequest] = useState();
 
@@ -46,69 +45,66 @@ export const Registration = () => {
 
   const saveInformation = (e) => {
     e.preventDefault();
-    
+
     const req = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(createUser),
-      };
-      async function request() {
-        return await fetch(
-          'https://todo-redev.herokuapp.com/api/users/register',
-          req
-          )
-          .then((response) => response.json())
-          .then((data) => setRequest(data));
-          }
-          request();
+    };
+    async function request() {
+      return await fetch(
+        'https://todo-redev.herokuapp.com/api/users/register',
+        req
+      )
+        .then((response) => response.json())
+        .then((data) => setRequest(data));
+    }
+    request();
   };
 
   return (
-    <div className="App">
-      <form>
-        <label htmlFor="fname">username:</label>
-        <br />
-        <input
-          id="username"
-          name="fname"
-          onChange={handleNameForm}
-        />
-        <br />
-        <label htmlFor="email">email:</label>
-        <br />
-        <input
+    <>
+      <Form className="App-form">
+        <div style={{marginBottom:"5px"}}>username:</div>
+        <Input onChange={handleNameForm} style={{ marginBottom: '5px' }} />
+        <div style={{marginBottom:"5px"}}>email:</div>
+        <Input
           id="email"
           name="email"
           value={email}
           onChange={handleEmailForm}
+          style={{ marginBottom: '5px' }}
         />
-        <br />
-        <label htmlFor="pass">password:</label>
-        <br />
-        <input
+        <div style={{marginBottom:"5px"}}>password:</div>
+        <Input
           id="pass"
           name="pass"
           value={password}
           onChange={handlePasswordForm}
+          style={{ marginBottom: '5px' }}
         />
-        <br />
-        <label htmlFor="pass">gender:</label>
-        <br />
-        <input
+        <div style={{marginBottom:"5px"}}>gender:</div>
+        <Input
           id="gender"
           name="gender"
           value={gender}
           onChange={handleGender}
+          style={{ marginBottom: '5px' }}
         />
-        <br />
-        <label htmlFor="pass">age:</label>
-        <br />
-        <input id="age" name="age" value={age} onChange={handleAge} />
-        <br />
-        <input type="submit" value="Submit" onClick={saveInformation} />
-      </form>
-      <NavLink to="/login">Already have an account? Log in.</NavLink>
+        <div style={{marginBottom:"5px"}}>age:</div>
+        <Input
+          id="age"
+          name="age"
+          value={age}
+          onChange={handleAge}
+          style={{ marginBottom: '5px' }}
+        />
+        <Button style={{marginTop:"5px"}} onClick={saveInformation}>
+          Submit
+        </Button>
+      </Form>
+      <NavLink style={{margin:"10px"}} to="/login">Already have an account? Log in.</NavLink>
       <Outlet />
-    </div>
+    </>
   );
 };

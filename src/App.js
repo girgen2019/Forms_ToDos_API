@@ -21,15 +21,15 @@ function App() {
             preview={false}
           />
       </Header>
-      <div className="App">
         <Content>
+      <div className="App">
           <Routes>
             <Route path="/" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/todo" element={<Todo />} />
           </Routes>
-        </Content>
       </div>
+        </Content>
     </Layout>
   );
 }
