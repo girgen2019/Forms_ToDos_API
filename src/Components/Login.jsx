@@ -78,7 +78,7 @@ export const Login = () => {
           <Input onChange={handleLoginEmail} style={{ marginBottom: '5px' }}/>
           <div style={{ marginBottom: '5px' }}>password</div>
           <Input onChange={handleLoginPassword} style={{ marginBottom: '5px' }}/>
-          <Button onClick={handleSubmit} style={{ marginTop: '15px' }}>Save</Button>
+          <Button onClick={handleSubmit} style={{ margin: '10px 0px' }}>Save</Button>
         </Form>
       
       {link && <NavLink to="/todo">token exist</NavLink>}
