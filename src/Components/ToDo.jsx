@@ -23,7 +23,7 @@ export const Todo = () => {
   return (
     <>
       <button
-        style={{ position: 'fixed', top: '5px', left: '5px' }}
+        style={{ position: 'fixed', top: '5rem', left: '1rem' }}
         onClick={goBackToLogin}
       >
         Go back

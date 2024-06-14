@@ -1,4 +1,7 @@
 /** @format */
+import { Button, Form, Input } from 'antd';
+
+
 
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -63,22 +66,21 @@ export const Login = () => {
 
   return (
     <>
-      <div>
-        <button
-          style={{ position: 'fixed', top: '5px', left: '5px' }}
+      
+        <Button
+          style={{ position: 'fixed', top: '5rem', left: '1rem' }}
           onClick={goBack}
         >
          Go back
-        </button>
-        <form>
-          <div>email</div>
-          <input onChange={handleLoginEmail} />
-          <div>password</div>
-          <input onChange={handleLoginPassword} />
-          <br />
-          <input type="submit" value="Submit" onClick={handleSubmit} />
-        </form>
-      </div>
+        </Button>
+        <Form className="App-form">
+          <div style={{ marginBottom: '5px' }}>email</div>
+          <Input onChange={handleLoginEmail} style={{ marginBottom: '5px' }}/>
+          <div style={{ marginBottom: '5px' }}>password</div>
+          <Input onChange={handleLoginPassword} style={{ marginBottom: '5px' }}/>
+          <Button onClick={handleSubmit} style={{ marginTop: '15px' }}>Save</Button>
+        </Form>
+      
       {link && <NavLink to="/todo">token exist</NavLink>}
     </>
   );

@@ -1,5 +1,5 @@
 /** @format */
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
