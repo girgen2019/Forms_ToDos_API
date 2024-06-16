@@ -24,7 +24,7 @@ function App() {
         <Content>
       <div className="App">
           <Routes>
-            <Route path="/" element={<Registration />} />
+            <Route path="/Forms_ToDos_API" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/todo" element={<Todo />} />
           </Routes>
