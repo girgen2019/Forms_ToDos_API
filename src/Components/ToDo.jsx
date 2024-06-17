@@ -48,10 +48,14 @@ export const Todo = () => {
               <li
                 key={todo.id}
                 style={{
+                  display:"flex",
+                  gap: "10px",
                   listStyle: 'none',
+                  margin:"10px 0px"
                 }}
               >
-                <i>{todo.title}</i>
+                <Input value={todo.title}/>
+                <Button>Edit</Button>
               </li>
             );
           })}
