@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState();
+  const [edit, setEdit] = useState(input)
   const InputRef = useRef();
 
   const handleChangeInput = (e) => {
@@ -18,6 +19,15 @@ export const Todo = () => {
     InputRef.current.focus();
     setInput('')
   };
+
+  const onChangeInputToDo = (e) => {
+    setEdit(e.target.value)
+  }
+
+  const handleEditToDo = (id, title) => {
+    todos.map(todos => todos.id === id && <Input />)
+    console.log("title",title);
+  }
 
   const navigateToPrevios = useNavigate();
   const goBackToLogin = () => {
@@ -54,8 +64,8 @@ export const Todo = () => {
                   margin:"10px 0px"
                 }}
               >
-                <Input value={todo.title}/>
-                <Button>Edit</Button>
+                <Input value={todo.title} onChange={onChangeInputToDo}/>
+                <Button onClick={() => handleEditToDo(todo.id, todo.title)}>Edit</Button>
               </li>
             );
           })}
