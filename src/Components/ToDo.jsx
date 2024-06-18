@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState();
-  const [edit, setEdit] = useState(input)
+  const [editMode, setEditMode] = useState(null);
   const InputRef = useRef();
+  const InputEditModeRef = useRef();
 
   const handleChangeInput = (e) => {
     setInput(e.target.value);
@@ -17,17 +18,20 @@ export const Todo = () => {
   const handleAddTodos = () => {
     setTodos([...todos, { id: Date.now(), title: input }]);
     InputRef.current.focus();
-    setInput('')
+    setInput('');
   };
 
   const onChangeInputToDo = (e) => {
-    setEdit(e.target.value)
-  }
+    setEditMode(e.target.value);
+  };
 
   const handleEditToDo = (id, title) => {
-    todos.map(todos => todos.id === id && <Input />)
-    console.log("title",title);
-  }
+    setEditMode(true);
+    todos.map((todos) => {
+      if (todos.id === id) {
+      }
+    });
+  };
 
   const navigateToPrevios = useNavigate();
   const goBackToLogin = () => {
@@ -45,7 +49,7 @@ export const Todo = () => {
         </Button>
         <div>Todo List</div>
         <Input
-        value={input}
+          value={input}
           ref={InputRef}
           onChange={handleChangeInput}
           style={{ margin: '10px 0px' }}
@@ -58,14 +62,24 @@ export const Todo = () => {
               <li
                 key={todo.id}
                 style={{
-                  display:"flex",
-                  gap: "10px",
+                  display: 'flex',
+                  gap: '10px',
                   listStyle: 'none',
-                  margin:"10px 0px"
+                  margin: '10px 0px',
                 }}
               >
-                <Input value={todo.title} onChange={onChangeInputToDo}/>
-                <Button onClick={() => handleEditToDo(todo.id, todo.title)}>Edit</Button>
+                {editMode ? (
+                  <Input ref={InputEditModeRef} />
+                ) : (
+                  <Input value={todo.title} onChange={onChangeInputToDo} />
+                )}
+                {editMode ? (
+                  <Button>Save</Button>
+                ) : (
+                  <Button onClick={() => handleEditToDo(todo.id, todo.title)}>
+                    Edit
+                  </Button>
+                )}
               </li>
             );
           })}
