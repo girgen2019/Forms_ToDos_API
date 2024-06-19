@@ -8,6 +8,7 @@ export const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState();
   const [editMode, setEditMode] = useState(null);
+  const [editInput, setEditInput] = useState()
   const InputRef = useRef();
   const InputEditModeRef = useRef();
 
@@ -25,12 +26,9 @@ export const Todo = () => {
     setEditMode(e.target.value);
   };
 
-  const handleEditToDo = (id, title) => {
-    setEditMode(true);
-    todos.map((todos) => {
-      if (todos.id === id) {
-      }
-    });
+  const handleEditToDo = (id, name) => {
+    setEditMode(id)
+    setEditInput(name)
   };
 
   const navigateToPrevios = useNavigate();
@@ -68,15 +66,17 @@ export const Todo = () => {
                   margin: '10px 0px',
                 }}
               >
-                {editMode ? (
-                  <Input ref={InputEditModeRef} />
+                {editMode === todo.id ? (
+                  <Input ref={InputEditModeRef}  onChange={(e) => setEditInput(e.target.value, todo.title)}
+                  value={editInput}
+                  />
                 ) : (
-                  <Input value={todo.title} onChange={onChangeInputToDo} />
+                  <Input value={todo.title} />
                 )}
-                {editMode ? (
-                  <Button>Save</Button>
+                {editMode ===  todo.id ? (
+                  <Button style={{width:"2.5rem"}}>Save</Button>
                 ) : (
-                  <Button onClick={() => handleEditToDo(todo.id, todo.title)}>
+                  <Button onClick={() => handleEditToDo(todo.id, todo.title)} style={{width:"2.5rem"}}>
                     Edit
                   </Button>
                 )}
