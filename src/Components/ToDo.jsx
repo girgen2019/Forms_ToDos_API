@@ -26,9 +26,20 @@ export const Todo = () => {
     setEditMode(e.target.value);
   };
 
-  const handleEditToDo = (id, name) => {
+  function handleEditToDo (id, name) {
+    InputEditModeRef.current.focus();
     setEditMode(id)
     setEditInput(name)
+  };
+
+  const saveHandle = (id) => {
+    const copyArray = [...todos].map((item) => {
+      if (item.id === id) {
+        return (item.title = editInput);
+      }
+    });
+    setEditInput(copyArray);
+    setEditMode(null);
   };
 
   const navigateToPrevios = useNavigate();
@@ -67,14 +78,14 @@ export const Todo = () => {
                 }}
               >
                 {editMode === todo.id ? (
-                  <Input ref={InputEditModeRef}  onChange={(e) => setEditInput(e.target.value, todo.title)}
+                  <Input onChange={(e) => setEditInput(e.target.value, todo.title)}
                   value={editInput}
                   />
                 ) : (
-                  <Input value={todo.title} />
+                  <Input ref={InputEditModeRef} value={todo.title}  />
                 )}
                 {editMode ===  todo.id ? (
-                  <Button style={{width:"2.5rem"}}>Save</Button>
+                  <Button onClick={() => saveHandle(todo.id)} style={{width:"2.5rem"}}>Save</Button>
                 ) : (
                   <Button onClick={() => handleEditToDo(todo.id, todo.title)} style={{width:"2.5rem"}}>
                     Edit
