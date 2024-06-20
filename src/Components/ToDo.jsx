@@ -1,5 +1,5 @@
 /** @format */
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Checkbox } from 'antd';
 
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ export const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState();
   const [editMode, setEditMode] = useState(null);
-  const [editInput, setEditInput] = useState()
+  const [editInput, setEditInput] = useState();
   const InputRef = useRef();
   const InputEditModeRef = useRef();
 
@@ -22,15 +22,10 @@ export const Todo = () => {
     setInput('');
   };
 
-  const onChangeInputToDo = (e) => {
-    setEditMode(e.target.value);
-  };
-
-  function handleEditToDo (id, name) {
-    InputEditModeRef.current.focus();
-    setEditMode(id)
-    setEditInput(name)
-  };
+  function handleEditToDo(id, name) {
+    setEditMode(id);
+    setEditInput(name);
+  }
 
   const saveHandle = (id) => {
     const copyArray = [...todos].map((item) => {
@@ -40,6 +35,11 @@ export const Todo = () => {
     });
     setEditInput(copyArray);
     setEditMode(null);
+  };
+
+  const handleDelete = (id) => {
+    const newTodosArray = [...todos].filter((item) => item.id !== id);
+    setTodos(newTodosArray);
   };
 
   const navigateToPrevios = useNavigate();
@@ -64,7 +64,7 @@ export const Todo = () => {
           style={{ margin: '10px 0px' }}
         />
         <Button onClick={handleAddTodos}>Add</Button>
-        <ul style={{ padding: '0' }}>
+        <ul style={{ padding: '0', width:"100%" }}>
           {todos.map((todo) => {
             /* index = index + 1; */
             return (
@@ -77,20 +77,31 @@ export const Todo = () => {
                   margin: '10px 0px',
                 }}
               >
+              <Checkbox></Checkbox>
                 {editMode === todo.id ? (
-                  <Input onChange={(e) => setEditInput(e.target.value, todo.title)}
-                  value={editInput}
+                  <Input
+                    onChange={(e) => setEditInput(e.target.value, todo.title)}
+                    value={editInput}
                   />
                 ) : (
-                  <Input ref={InputEditModeRef} value={todo.title}  />
+                  <Input value={todo.title} />
                 )}
-                {editMode ===  todo.id ? (
-                  <Button onClick={() => saveHandle(todo.id)} style={{width:"2.5rem"}}>Save</Button>
+                {editMode === todo.id ? (
+                  <Button
+                    onClick={() => saveHandle(todo.id)}
+                    style={{ width: '2.5rem' }}
+                  >
+                    Save
+                  </Button>
                 ) : (
-                  <Button onClick={() => handleEditToDo(todo.id, todo.title)} style={{width:"2.5rem"}}>
+                  <Button
+                    onClick={() => handleEditToDo(todo.id, todo.title)}
+                    style={{ width: '2.5rem' }}
+                  >
                     Edit
                   </Button>
                 )}
+                <Button onClick={() => handleDelete(todo.id)}>Delete</Button>
               </li>
             );
           })}
