@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
   const [editMode, setEditMode] = useState(null);
   const [editInput, setEditInput] = useState();
   const InputRef = useRef();
@@ -29,7 +29,7 @@ export const Todo = () => {
 
   function handleEditToDo(id, name) {
     todos.map((item) => {
-      if (item.status === true) {
+      if (item.status === true && item.id === id) {
         setEditMode(null);
       } else {
         setEditMode(id);
