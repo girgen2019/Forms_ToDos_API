@@ -17,9 +17,14 @@ export const Todo = () => {
   };
 
   const handleAddTodos = () => {
-    setTodos([...todos, { id: Date.now(), title: input, status: false }]);
-    InputRef.current.focus();
-    setInput('');
+    let entered = InputRef.current.input.value;
+    if (entered !== '') {
+      setTodos([...todos, { id: Date.now(), title: input, status: false }]);
+      InputRef.current.focus();
+      setInput('');
+    } else {
+      setTodos([...todos]);
+    }
   };
 
   function handleEditToDo(id, name) {
@@ -56,17 +61,16 @@ export const Todo = () => {
   const goBackToLogin = () => {
     navigateToPrevios('/login');
   };
-  console.log(todos);
   return (
     <>
-      <Form className="App-form">
+      <Form className=".App-form">
         <Button
           style={{ position: 'fixed', top: '5rem', left: '1rem' }}
           onClick={goBackToLogin}
         >
           Go back
         </Button>
-        <div>Todo List</div>
+        <h1 style={{ color: 'white' }}>Todo List</h1>
         <Input
           value={input}
           ref={InputRef}
@@ -74,103 +78,94 @@ export const Todo = () => {
           style={{ margin: '10px 0px' }}
         />
         <Button onClick={handleAddTodos}>Add</Button>
-        <ul style={{ padding: '0', width: '100%' }}>
-          {todos.map((todo) => {
-            /* index = index + 1; */
-            return (
-              <>
-                {todo.status ? (
-                 <li
-                    key={todo.id}
-                    style={{
-                      display: 'flex',
-                      gap: '10px',
-                      listStyle: 'none',
-                      margin: '10px 0px',
-                      textDecorationLine:"line-through",
-                      textDecorationColor:"black",
-                      textDecorationStyle:"double"
-                    }}
-                  >
-                    <Checkbox
-                      onChange={() => statusIsCompleted(todo.id)}
-                    ></Checkbox>
-                    {editMode === todo.id ? (
-                      <Input
-                        onChange={(e) =>
-                          setEditInput(e.target.value, todo.title)
-                        }
-                        value={editInput}
-                      />
-                    ) : (
-                      <Input value={todo.title} />
-                    )}
-                    {editMode === todo.id ? (
-                      <Button
-                        onClick={() => saveHandle(todo.id)}
-                        style={{ width: '2.5rem' }}
-                      >
-                        Save
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleEditToDo(todo.id, todo.title)}
-                        style={{ width: '2.5rem' }}
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    <Button onClick={() => handleDelete(todo.id)}>
-                      Delete
+        {todos.map((todo) => {
+          return (
+            <ul style={{ padding: '0' }} key={todo.id}>
+              {todo.status ? (
+                <li
+                  key={todo.id}
+                  style={{
+                    display: 'flex',
+                    gap: '10px',
+                    listStyle: 'none',
+                    margin: '10px 0px',
+                    textDecorationLine: 'line-through',
+                    textDecorationColor: 'black',
+                    textDecorationStyle: 'double',
+                  }}
+                >
+                  <Checkbox
+                    onChange={() => statusIsCompleted(todo.id)}
+                  ></Checkbox>
+                  {editMode === todo.id ? (
+                    <Input
+                      onChange={(e) => setEditInput(e.target.value, todo.title)}
+                      value={editInput}
+                    />
+                  ) : (
+                    <Input value={todo.title} />
+                  )}
+                  {editMode === todo.id ? (
+                    <Button
+                      onClick={() => saveHandle(todo.id)}
+                      style={{ width: '2.5rem' }}
+                    >
+                      Save
                     </Button>
-                  </li>
-                ) : (
-                  <li
-                    key={todo.id}
-                    style={{
-                      display: 'flex',
-                      gap: '10px',
-                      listStyle: 'none',
-                      margin: '10px 0px',
-                    }}
-                  >
-                    <Checkbox
-                      onChange={() => statusIsCompleted(todo.id)}
-                    ></Checkbox>
-                    {editMode === todo.id ? (
-                      <Input
-                        onChange={(e) =>
-                          setEditInput(e.target.value, todo.title)
-                        }
-                        value={editInput}
-                      />
-                    ) : (
-                      <Input value={todo.title} />
-                    )}
-                    {editMode === todo.id ? (
-                      <Button
-                        onClick={() => saveHandle(todo.id)}
-                        style={{ width: '2.5rem' }}
-                      >
-                        Save
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleEditToDo(todo.id, todo.title)}
-                        style={{ width: '2.5rem' }}
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    <Button onClick={() => handleDelete(todo.id)}>
-                      Delete
+                  ) : (
+                    <Button
+                      onClick={() => handleEditToDo(todo.id, todo.title)}
+                      style={{ width: '2.5rem' }}
+                    >
+                      Edit
                     </Button>
-                  </li>
-                )}
-              </>
-            );
-          })}
-        </ul>
+                  )}
+                  <Button onClick={() => handleDelete(todo.id)}>Delete</Button>
+                </li>
+              ) : (
+                <li
+                  key={todo.id}
+                  style={{
+                    display: 'flex',
+                    gap: '10px',
+                    listStyle: 'none',
+                    margin: '10px 0px',
+                  }}
+                >
+                  <Checkbox
+                    onChange={() => statusIsCompleted(todo.id)}
+                  ></Checkbox>
+                  {editMode === todo.id ? (
+                    <Input
+                      onChange={(e) => setEditInput(e.target.value, todo.title)}
+                      value={editInput}
+                      ref={InputEditModeRef}
+                    />
+                  ) : (
+                    <Input value={todo.title} ref={InputEditModeRef} />
+                  )}
+                  {editMode === todo.id ? (
+                    <Button
+                      onClick={() => saveHandle(todo.id)}
+                      style={{ width: '2.5rem' }}
+                    >
+                      Save
+                    </Button>
+                  ) : (
+                    <Button
+                      ref={InputEditModeRef}
+                      onClick={() => handleEditToDo(todo.id, todo.title)}
+                      style={{ width: '2.5rem' }}
+                    >
+                      Edit
+                    </Button>
+                  )}
+                  <Button onClick={() => handleDelete(todo.id)}>Delete</Button>
+                </li>
+              )}
+            </ul>
+          );
+        })}
       </Form>
     </>
   );

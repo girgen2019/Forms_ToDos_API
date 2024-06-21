@@ -39,13 +39,17 @@
 
 .App-form{
   color: #fff;
-  width: 40%;
+  width: 20%;
   text-align: center;
 }
 
-.hidden{
-  display: none;
-}
+/* .App-form_todos{
+  color: #fff;
+  width: 20%;
+  text-align: center;
+} */
+
+
 
 @keyframes App-logo-spin {
   from {
