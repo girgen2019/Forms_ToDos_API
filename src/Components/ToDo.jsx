@@ -18,7 +18,7 @@ export const Todo = () => {
 
   const handleAddTodos = () => {
     let entered = InputRef.current.input.value;
-    if (entered !== '') {
+    if (entered.trim() !== '') {
       setTodos([...todos, { id: Date.now(), title: input, status: false }]);
       InputRef.current.focus();
       setInput('');
@@ -28,8 +28,14 @@ export const Todo = () => {
   };
 
   function handleEditToDo(id, name) {
-    setEditMode(id);
-    setEditInput(name);
+    todos.map((item) => {
+      if (item.status === true) {
+        setEditMode(null);
+      } else {
+        setEditMode(id);
+        setEditInput(name);
+      }
+    });
   }
 
   const saveHandle = (id) => {
@@ -61,6 +67,7 @@ export const Todo = () => {
   const goBackToLogin = () => {
     navigateToPrevios('/login');
   };
+
   return (
     <>
       <Form className=".App-form">
@@ -105,22 +112,31 @@ export const Todo = () => {
                   ) : (
                     <Input value={todo.title} />
                   )}
+
                   {editMode === todo.id ? (
-                    <Button
-                      onClick={() => saveHandle(todo.id)}
-                      style={{ width: '2.5rem' }}
-                    >
-                      Save
-                    </Button>
+                    <div>
+                      <Button
+                        onClick={() => saveHandle(todo.id)}
+                        style={{ width: '2.5rem', textDecorationLine: 'none' }}
+                      >
+                        Save
+                      </Button>
+                    </div>
                   ) : (
-                    <Button
-                      onClick={() => handleEditToDo(todo.id, todo.title)}
-                      style={{ width: '2.5rem' }}
-                    >
-                      Edit
-                    </Button>
+                    <div>
+                      <Button
+                        onClick={() => handleEditToDo(todo.id, todo.title)}
+                        style={{ width: '2.5rem' }}
+                      >
+                        Edit
+                      </Button>
+                    </div>
                   )}
-                  <Button onClick={() => handleDelete(todo.id)}>Delete</Button>
+                  <div>
+                    <Button onClick={() => handleDelete(todo.id)}>
+                      Delete
+                    </Button>
+                  </div>
                 </li>
               ) : (
                 <li
@@ -139,11 +155,11 @@ export const Todo = () => {
                     <Input
                       onChange={(e) => setEditInput(e.target.value, todo.title)}
                       value={editInput}
-                      ref={InputEditModeRef}
                     />
                   ) : (
-                    <Input value={todo.title} ref={InputEditModeRef} />
+                    <Input value={todo.title} />
                   )}
+
                   {editMode === todo.id ? (
                     <Button
                       onClick={() => saveHandle(todo.id)}
@@ -153,13 +169,13 @@ export const Todo = () => {
                     </Button>
                   ) : (
                     <Button
-                      ref={InputEditModeRef}
                       onClick={() => handleEditToDo(todo.id, todo.title)}
                       style={{ width: '2.5rem' }}
                     >
                       Edit
                     </Button>
                   )}
+
                   <Button onClick={() => handleDelete(todo.id)}>Delete</Button>
                 </li>
               )}
