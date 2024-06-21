@@ -6,11 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [editMode, setEditMode] = useState(null);
   const [editInput, setEditInput] = useState();
   const InputRef = useRef();
-  const InputEditModeRef = useRef();
 
   const handleChangeInput = (e) => {
     setInput(e.target.value);
@@ -27,16 +26,10 @@ export const Todo = () => {
     }
   };
 
-  function handleEditToDo(id, name) {
-    todos.map((item) => {
-      if (item.status === true && item.id === id) {
-        setEditMode(null);
-      } else {
-        setEditMode(id);
-        setEditInput(name);
-      }
-    });
-  }
+  const handleEditToDo = (id, name) => {
+    setEditMode(id);
+    setEditInput(name);
+  };
 
   const saveHandle = (id) => {
     const copyArray = [...todos].map((item) => {
@@ -110,7 +103,8 @@ export const Todo = () => {
                       value={editInput}
                     />
                   ) : (
-                    <Input value={todo.title} />
+                    <Input value={todo.title}
+                    />
                   )}
 
                   {editMode === todo.id ? (
@@ -124,12 +118,16 @@ export const Todo = () => {
                     </div>
                   ) : (
                     <div>
-                      <Button
-                        onClick={() => handleEditToDo(todo.id, todo.title)}
-                        style={{ width: '2.5rem' }}
-                      >
-                        Edit
-                      </Button>
+                      {todo.status ? (
+                        <Button style={{ width: '2.5rem'}}>Done</Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleEditToDo(todo.id, todo.title)}
+                          style={{ width: '2.5rem' }}
+                        >
+                          Edit
+                        </Button>
+                      )}
                     </div>
                   )}
                   <div>
