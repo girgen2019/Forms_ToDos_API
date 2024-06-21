@@ -47,13 +47,10 @@ export const Todo = () => {
   };
 
   const statusIsCompleted = (id) => {
-    const newArraySatus = [...todos].map((item) => {
-      if (item.id === id) {
-        item.status = !item.status;
-      }
-      return item;
-    });
-    setTodos(newArraySatus);
+   setTodos(todos.map((item) =>({
+    ...item,
+    status: item.id === id && !item.status
+   })));
   };
 
   const navigateToPrevios = useNavigate();
@@ -63,7 +60,7 @@ export const Todo = () => {
 
   return (
     <>
-      <Form className=".App-form">
+      <Form className="App-form">
         <Button
           style={{ position: 'fixed', top: '5rem', left: '1rem' }}
           onClick={goBackToLogin}
