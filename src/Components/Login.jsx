@@ -1,10 +1,11 @@
 /** @format */
 import { Button, Form, Input } from 'antd';
+import { ButtonGoBack } from './BtnGoBack';
 
 
 
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const isToken = () => {
   let tokenStore = localStorage.getItem('token');
@@ -28,9 +29,6 @@ export const Login = () => {
   const handleLoginPassword = (e) => {
     objectLogin.password = e.target.value;
   };
-
-  const navigate = useNavigate();
-  const goBack = () => navigate('/Forms_ToDos_API');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,12 +65,7 @@ export const Login = () => {
   return (
     <>
       
-        <Button
-          style={{ position: 'fixed', top: '5rem', left: '1rem' }}
-          onClick={goBack}
-        >
-         Go back
-        </Button>
+      <ButtonGoBack pathTo={'Forms_ToDos_API'}/>
         <Form className="App-form">
           <div style={{ marginBottom: '5px' }}>email</div>
           <Input onChange={handleLoginEmail} style={{ marginBottom: '5px' }}/>
@@ -81,7 +74,7 @@ export const Login = () => {
           <Button onClick={handleSubmit} style={{ margin: '10px 0px' }}>Save</Button>
         </Form>
       
-      {link && <NavLink to="/todo">token exist</NavLink>}
+      {link && <NavLink to="/todo_form">token exist</NavLink>}
     </>
   );
 };

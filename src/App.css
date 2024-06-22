@@ -1,3 +1,4 @@
+/** @format */
 
 .App {
   padding: 5% 0px;
@@ -37,12 +38,32 @@
   color: #61dafb;
 }
 
-.App-form{
+.App-form {
   color: #fff;
   width: 40%;
   text-align: center;
 }
+.status-done {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 10px 0px;
+  text-decoration-line: line-through;
+  text-decoration-color: black;
+  text-decoration-style: double;
+}
+.status-in-progress {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 10px 0px;
+}
 
+.button-navigate {
+  position: fixed;
+  top: 5rem;
+  left: 1rem;
+}
 
 @keyframes App-logo-spin {
   from {

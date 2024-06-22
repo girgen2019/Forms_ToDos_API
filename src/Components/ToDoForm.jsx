@@ -1,10 +1,11 @@
 /** @format */
+import { useRef, useState } from 'react';
+import { ButtonGoBack } from './BtnGoBack';
+import { ToDoItem } from './ToDoItem';
+
 import { Button, Form, Input, Checkbox } from 'antd';
 
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-export const Todo = () => {
+export const TodoForm = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
   const [editMode, setEditMode] = useState(null);
@@ -47,26 +48,18 @@ export const Todo = () => {
   };
 
   const statusIsCompleted = (id) => {
-   setTodos(todos.map((item) =>({
-    ...item,
-    status: item.id === id && !item.status
-   })));
-  };
-
-  const navigateToPrevios = useNavigate();
-  const goBackToLogin = () => {
-    navigateToPrevios('/login');
+    setTodos(
+      todos.map((item) => ({
+        ...item,
+        status: item.id === id ? !item.status : item.status,
+      }))
+    );
   };
 
   return (
     <>
       <Form className="App-form">
-        <Button
-          style={{ position: 'fixed', top: '5rem', left: '1rem' }}
-          onClick={goBackToLogin}
-        >
-          Go back
-        </Button>
+        <ButtonGoBack pathTo={'login'} />
         <h1 style={{ color: 'white' }}>Todo List</h1>
         <Input
           value={input}
@@ -75,22 +68,17 @@ export const Todo = () => {
           style={{ margin: '10px 0px' }}
         />
         <Button onClick={handleAddTodos}>Add</Button>
+
+        {/* =========== */}
+
+        {/* =========== */}
+
         {todos.map((todo) => {
           return (
             <ul style={{ padding: '0' }} key={todo.id}>
               {todo.status ? (
-                <li
-                  key={todo.id}
-                  style={{
-                    display: 'flex',
-                    gap: '10px',
-                    listStyle: 'none',
-                    margin: '10px 0px',
-                    textDecorationLine: 'line-through',
-                    textDecorationColor: 'black',
-                    textDecorationStyle: 'double',
-                  }}
-                >
+                <li key={todo.id} className="status-done">
+                  {/* <ToDoItem /> */}
                   <Checkbox
                     onChange={() => statusIsCompleted(todo.id)}
                   ></Checkbox>
@@ -100,8 +88,7 @@ export const Todo = () => {
                       value={editInput}
                     />
                   ) : (
-                    <Input value={todo.title}
-                    />
+                    <Input value={todo.title} />
                   )}
 
                   {editMode === todo.id ? (
@@ -116,7 +103,7 @@ export const Todo = () => {
                   ) : (
                     <div>
                       {todo.status ? (
-                        <Button style={{ width: '2.5rem'}}>Done</Button>
+                        <Button style={{ width: '2.5rem' }}>Done</Button>
                       ) : (
                         <Button
                           onClick={() => handleEditToDo(todo.id, todo.title)}
@@ -134,15 +121,7 @@ export const Todo = () => {
                   </div>
                 </li>
               ) : (
-                <li
-                  key={todo.id}
-                  style={{
-                    display: 'flex',
-                    gap: '10px',
-                    listStyle: 'none',
-                    margin: '10px 0px',
-                  }}
-                >
+                <li key={todo.id} className="status-in-progress">
                   <Checkbox
                     onChange={() => statusIsCompleted(todo.id)}
                   ></Checkbox>
