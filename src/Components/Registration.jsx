@@ -1,14 +1,10 @@
 /** @format */
-import { Button, Form, Input } from 'antd';
-
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+
+import { Button, Form, Input } from 'antd';
+
 export const Registration = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [gender, setGender] = useState();
-  const [age, setAge] = useState();
   const [createUser, setCreateUser] = useState({
     username: '',
     email: '',
@@ -71,7 +67,7 @@ export const Registration = () => {
         <Input
           id="email"
           name="email"
-          value={email}
+          value={createUser.email}
           onChange={handleEmailForm}
           style={{ marginBottom: '5px' }}
         />
@@ -79,7 +75,7 @@ export const Registration = () => {
         <Input
           id="pass"
           name="pass"
-          value={password}
+          value={createUser.password}
           onChange={handlePasswordForm}
           style={{ marginBottom: '5px' }}
         />
@@ -87,7 +83,7 @@ export const Registration = () => {
         <Input
           id="gender"
           name="gender"
-          value={gender}
+          value={createUser.gender}
           onChange={handleGender}
           style={{ marginBottom: '5px' }}
         />
@@ -95,7 +91,7 @@ export const Registration = () => {
         <Input
           id="age"
           name="age"
-          value={age}
+          value={createUser.age}
           onChange={handleAge}
           style={{ marginBottom: '5px' }}
         />

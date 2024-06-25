@@ -1,11 +1,9 @@
 /** @format */
-import { Button, Form, Input } from 'antd';
-import { ButtonGoBack } from './BtnGoBack';
-
-
-
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { ButtonGoBack } from './BtnGoBack';
+import { Button, Form, Input } from 'antd';
 
 const isToken = () => {
   let tokenStore = localStorage.getItem('token');
@@ -64,7 +62,6 @@ export const Login = () => {
 
   return (
     <>
-      
       <ButtonGoBack pathTo={'Forms_ToDos_API'}/>
         <Form className="App-form">
           <div style={{ marginBottom: '5px' }}>email</div>
@@ -73,7 +70,6 @@ export const Login = () => {
           <Input onChange={handleLoginPassword} style={{ marginBottom: '5px' }}/>
           <Button onClick={handleSubmit} style={{ margin: '10px 0px' }}>Save</Button>
         </Form>
-      
       {link && <NavLink to="/todo_form">token exist</NavLink>}
     </>
   );
