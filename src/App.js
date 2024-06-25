@@ -7,6 +7,7 @@ import { Login } from './Components/Login';
 import { Route, Routes } from 'react-router-dom';
 import { Registration } from './Components/Registration';
 import { TodoForm } from './Components/ToDoForm';
+import { NotFound } from './Components/NotFound';
 
 const { Header, Content } = Layout;
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/Forms_ToDos_API" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/todo_form" element={<TodoForm />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
       </div>
         </Content>
